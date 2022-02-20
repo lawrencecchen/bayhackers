@@ -59,7 +59,8 @@ function transformKids(
 
   for (let i = 0; i < kids.length; i++) {
     const descendant = kids[i];
-    const parentId = Number(descendant.path?.split(".").at(-1));
+    const splitId = descendant.path?.split("/");
+    const parentId = Number(splitId?.[splitId?.length - 1]);
     if (!result[descendant.item_id]) {
       result[descendant.item_id] = { ...descendant, kids: [] };
     }
