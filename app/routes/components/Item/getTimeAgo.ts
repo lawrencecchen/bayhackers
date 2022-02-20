@@ -8,7 +8,7 @@ export function getTimeAgo(date: Date) {
   let fuzzy;
 
   if (delta < 30) {
-    fuzzy = "just then";
+    fuzzy = "just now";
   } else if (delta < minute) {
     fuzzy = delta + " seconds ago";
   } else if (delta < 2 * minute) {

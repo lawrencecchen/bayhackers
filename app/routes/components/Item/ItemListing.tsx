@@ -6,12 +6,14 @@ import { getTimeAgo } from "./getTimeAgo";
 function ItemListing({
   item,
   hiddenOptions,
+  showScore=true
 }: {
   item: definitions["items"];
   hiddenOptions?: {
     onChange: (value: boolean) => void;
     hidden: boolean;
   };
+  showScore: boolean;
 }) {
   return (
     <div className="flex">
@@ -57,7 +59,9 @@ function ItemListing({
           </div>
           <div>
             <span className="text-xs text-gray-500">
-              {item.score} points by{" "}
+              {showScore && 
+                <>{item.score} points by{" "}</>
+              }
               <Link to={`/users/${item.by}`} className="hover:underline">
                 {item.by}
               </Link>{" "}

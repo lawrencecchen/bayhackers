@@ -62,13 +62,16 @@ function transformKids(
     const splitId = descendant.path?.split("/");
     const parentId = Number(splitId?.[splitId?.length - 1]);
     if (!result[descendant.item_id]) {
-      result[descendant.item_id] = { ...descendant, kids: [] };
+      result[descendant.item_id] = { ...descendant, kids: [], ...result[descendant.item_id] };
     }
     if (parentId) {
+      if (!result[parentId]) {
+        result[parentId] = {};
+      }
       if (!result[parentId].kids) {
         result[parentId].kids = [];
       }
-      result[parentId].kids?.push(descendant.item_id);
+      result[parentId]?.kids?.push(descendant.item_id);
     }
   }
 
@@ -148,6 +151,7 @@ function Kid({ id, kids }: { id: number; kids: INormalizedKids }) {
           <ItemListing
             item={kid}
             hiddenOptions={{ hidden, onChange: setHidden }}
+            showScore={false}
           />
         </li>
 
@@ -166,6 +170,7 @@ function Kid({ id, kids }: { id: number; kids: INormalizedKids }) {
 function Item() {
   const { rootId, kids } = useLoaderData<ILoader>();
   const root = kids[rootId];
+  console.log(kids)
 
   return (
     <div className="max-w-6xl mx-auto w-full p-3">
@@ -180,10 +185,9 @@ function Item() {
           value={generatePath(root.item_id, root.path)}
         />
         <textarea
-          className="block border border-gray-300 px-2 py-1"
+          className="block border border-gray-300 px-2 py-1 w-full"
           name="comment"
           aria-label="Comment"
-          cols={80}
           rows={4}
         ></textarea>
 
