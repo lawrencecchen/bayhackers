@@ -1,10 +1,12 @@
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
+  NavLink,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "./tailwind.css";
@@ -15,7 +17,7 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  return { title: "Bay Hackers" };
 };
 
 export default function App() {
@@ -28,6 +30,15 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <div className="border-b">
+          <div className="max-w-6xl mx-auto w-full p-3 space-x-4">
+            <NavLink to="/" className="font-semibold">
+              Bay Hackers
+            </NavLink>
+
+            <Link to="/submit">submit</Link>
+          </div>
+        </div>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
@@ -37,7 +48,7 @@ export default function App() {
   );
 }
 
-export function ErrorBoundary({ error }) {
+export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <div>
       <h1>Error</h1>
