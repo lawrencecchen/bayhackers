@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+    "err": {
+      "name": "pnpm",
+      "message": "No package.json (or package.yaml, or package.json5) was found in \"/home/runner/remix-tailwindcss-template\".",
+      "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+      "stack": "pnpm: No package.json (or package.yaml, or package.json5) was found in \"/home/runner/remix-tailwindcss-template\".\n    at readProjectManifest (/nix/store/kh5rqvj2l82gznih1b5isc43mk2dnh6j-pnpm-6.22.2/lib/node_modules/pnpm/dist/pnpm.cjs:43046:13)\n    at async Object.readProjectManifestOnly (/nix/store/kh5rqvj2l82gznih1b5isc43mk2dnh6j-pnpm-6.22.2/lib/node_modules/pnpm/dist/pnpm.cjs:43050:28)\n    at async readProjectManifestOnly (/nix/store/kh5rqvj2l82gznih1b5isc43mk2dnh6j-pnpm-6.22.2/lib/node_modules/pnpm/dist/pnpm.cjs:43269:24)\n    at async Object.handler (/nix/store/kh5rqvj2l82gznih1b5isc43mk2dnh6j-pnpm-6.22.2/lib/node_modules/pnpm/dist/pnpm.cjs:129915:24)\n    at async /nix/store/kh5rqvj2l82gznih1b5isc43mk2dnh6j-pnpm-6.22.2/lib/node_modules/pnpm/dist/pnpm.cjs:134121:20\n    at async run (/nix/store/kh5rqvj2l82gznih1b5isc43mk2dnh6j-pnpm-6.22.2/lib/node_modules/pnpm/dist/pnpm.cjs:134095:34)\n    at async runPnpm (/nix/store/kh5rqvj2l82gznih1b5isc43mk2dnh6j-pnpm-6.22.2/lib/node_modules/pnpm/dist/pnpm.cjs:134307:5)\n    at async /nix/store/kh5rqvj2l82gznih1b5isc43mk2dnh6j-pnpm-6.22.2/lib/node_modules/pnpm/dist/pnpm.cjs:134299:7"
+    }
+  }
+}
