@@ -1,9 +1,9 @@
 import { ActionFunction, Form, redirect } from "remix";
 import invariant from "tiny-invariant";
 import { definitions } from "~/lib/types/supabase";
-import { supabase } from "~/utils/supabase";
+import { supabase } from "~/utils/supabase/supabase.server";
 
-// FIXME: by cookies :)
+// FIXME: by = cookies :)
 
 export const action: ActionFunction = async ({ params, request }) => {
   const formData = await request.formData();
@@ -46,7 +46,7 @@ export default function Submit() {
           </label>
           <input
             type="text"
-            className="border border-gray-300 px-2 py-1 col-span-4 sm:col-span-3"
+            className="border border-slate-300 px-2 py-1 col-span-4 sm:col-span-3"
             name="title"
           />
         </div>
@@ -59,7 +59,7 @@ export default function Submit() {
           </label>
           <input
             type="text"
-            className="border border-gray-300 px-2 py-1 col-span-4 sm:col-span-3"
+            className="border border-slate-300 px-2 py-1 col-span-4 sm:col-span-3"
             name="url"
           />
         </div>
@@ -68,7 +68,7 @@ export default function Submit() {
 
         <button
           type="submit"
-          className="font-bold border border-gray-300 rounded-sm text-sm px-2 py-1"
+          className="font-bold border border-slate-300 rounded-sm text-sm px-2 py-1 hover:underline"
         >
           submit
         </button>

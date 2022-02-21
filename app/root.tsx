@@ -7,6 +7,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "./tailwind.css";
@@ -21,6 +22,12 @@ export const meta: MetaFunction = () => {
 };
 
 export default function App() {
+  const location = useLocation();
+
+  const state = location.state as {
+    disableScroll?: boolean;
+  };
+
   return (
     <html lang="en">
       <head>
@@ -36,11 +43,16 @@ export default function App() {
               Bay Hackers
             </NavLink>
 
-            <Link to="/submit">submit</Link>
+            <Link
+              to="/submit"
+              className="text-sm px-2 py-1 hover:underline text-slate-700"
+            >
+              submit
+            </Link>
           </div>
         </div>
         <Outlet />
-        <ScrollRestoration />
+        {!state?.disableScroll && <ScrollRestoration />}
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>

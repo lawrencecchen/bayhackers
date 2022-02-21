@@ -1,20 +1,28 @@
 import { useState } from "react";
-import { Link } from "remix";
+import { Link, Outlet, useParams, useSearchParams } from "remix";
 import { definitions } from "~/lib/types/supabase";
+import Item from "~/routes/item/$itemId";
+import { generatePath } from "./generatePath";
 import { getTimeAgo } from "./getTimeAgo";
 
 function ItemListing({
   item,
   hiddenOptions,
-  showScore=true
+  showScore = true,
+  root,
 }: {
   item: definitions["items"];
   hiddenOptions?: {
     onChange: (value: boolean) => void;
     hidden: boolean;
   };
-  showScore: boolean;
+  showScore?: boolean;
+  root?: Item;
 }) {
+  const commentPath = generatePath(item.item_id, item.path);
+  const [searchParams] = useSearchParams();
+  const params = useParams();
+
   return (
     <div className="flex">
       <div className="grid grid-cols-[auto,36px,1fr] w-full items-baseline">
@@ -30,12 +38,23 @@ function ItemListing({
         )}
         <form
           method="post"
-          className="mr-1 place-self-center col-start-2"
+          className="place-self-center col-start-2"
           aria-hidden={hiddenOptions?.hidden}
           hidden={hiddenOptions?.hidden}
         >
-          <button name="upvote" className="text-slate-400" title="upvote">
-            ▲
+          <button
+            name="upvote"
+            className="text-slate-500/80 p-1"
+            title="upvote"
+          >
+            <svg
+              width="12"
+              height="12"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="m6 0 6 14H0L6 0Z" />
+            </svg>
           </button>
         </form>
 
@@ -58,22 +77,46 @@ function ItemListing({
             )}
           </div>
           <div>
-            <span className="text-xs text-gray-500">
-              {showScore && 
-                <>{item.score} points by{" "}</>
-              }
-              <Link to={`/users/${item.by}`} className="hover:underline">
+            <span className="text-xs text-slate-500">
+              {showScore && <>{item.score} points by </>}
+              <Link
+                to={`/users/${item.by}`}
+                prefetch="intent"
+                className="hover:underline"
+              >
                 {item.by}
               </Link>{" "}
-              {getTimeAgo(new Date(item.inserted_at))} |{" "}
+              {getTimeAgo(new Date(item.inserted_at))}
+              {" | "}
               {item.type === "comment" ? (
-                <Link to={`?${item.item_id}`} className="hover:underline">
+                <Link
+                  to={`/item/${item.item_id}`}
+                  prefetch="intent"
+                  className="hover:underline"
+                >
                   link
                 </Link>
               ) : (
-                <Link to={`item/${item.item_id}`} className="hover:underline">
+                <Link
+                  to={`item/${item.item_id}`}
+                  prefetch="intent"
+                  className="hover:underline"
+                >
                   comments
                 </Link>
+              )}
+              {root && (
+                <>
+                  {" | "}
+                  on:{" "}
+                  <Link
+                    to={`/item/${root.item_id}`}
+                    prefetch="intent"
+                    className="hover:underline"
+                  >
+                    {root.title}
+                  </Link>
+                </>
               )}
             </span>
           </div>
@@ -86,9 +129,18 @@ function ItemListing({
             hidden={hiddenOptions?.hidden}
           >
             <div className="text-slate-700 my-1">{item.text}</div>
-            <Link to="reply" className="text-xs text-gray-600 underline">
-              reply
-            </Link>
+            {!root && searchParams.get("to") === commentPath ? (
+              <Outlet />
+            ) : (
+              <Link
+                to={`reply?to=${commentPath}`}
+                className="text-xs text-slate-600 underline"
+                state={{ disableScroll: true }}
+                prefetch="intent"
+              >
+                reply
+              </Link>
+            )}
           </div>
         )}
       </div>

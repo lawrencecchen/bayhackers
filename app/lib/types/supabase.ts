@@ -1290,8 +1290,8 @@ export interface paths {
       parameters: {
         body: {
           args: {
-            /** Format: extensions.ltree */
-            parent_path: string;
+            /** Format: extensions.ltxtquery */
+            ltree_query: string;
           };
         };
         header: {

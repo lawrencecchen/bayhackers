@@ -1,7 +1,7 @@
-import { json, Link, NavLink, useLoaderData } from "remix";
 import type { LoaderFunction } from "remix";
-import { supabase } from "~/utils/supabase";
+import { json, useLoaderData } from "remix";
 import { definitions } from "~/lib/types/supabase";
+import { supabase } from "~/utils/supabase/supabase.server";
 import ItemListing from "./components/Item/ItemListing";
 
 async function getItems() {
