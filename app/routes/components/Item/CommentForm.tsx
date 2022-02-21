@@ -1,4 +1,4 @@
-import { Form, useSearchParams } from "remix";
+import { Form } from "remix";
 
 function CommentForm({
   parentPath,
