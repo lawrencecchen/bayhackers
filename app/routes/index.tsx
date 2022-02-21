@@ -36,7 +36,7 @@ export default function Index() {
         <ul className="space-y-2">
           {items.map((item) => (
             <li key={item.item_id}>
-              <ItemListing item={item} />
+              <ItemListing item={item} showContent={false} />
             </li>
           ))}
         </ul>

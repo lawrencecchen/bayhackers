@@ -10,6 +10,7 @@ function ItemListing({
   hiddenOptions,
   showScore = true,
   root,
+  showContent = true,
 }: {
   item: definitions["items"];
   hiddenOptions?: {
@@ -18,6 +19,7 @@ function ItemListing({
   };
   showScore?: boolean;
   root?: Item;
+  showContent?: boolean;
 }) {
   const commentPath = generatePath(item.item_id, item.path);
   const [searchParams] = useSearchParams();
@@ -48,12 +50,13 @@ function ItemListing({
             title="upvote"
           >
             <svg
+              viewBox="0 0 14 14"
               width="12"
               height="12"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="m6 0 6 14H0L6 0Z" />
+              <path d="m7 0 7 14H0L7 0Z" />
             </svg>
           </button>
         </form>
@@ -122,24 +125,28 @@ function ItemListing({
           </div>
         </div>
 
-        {item.type === "comment" && (
+        {showContent && (
           <div
             className="col-start-3"
             aria-hidden={hiddenOptions?.hidden}
             hidden={hiddenOptions?.hidden}
           >
             <div className="text-slate-700 my-1">{item.text}</div>
-            {!root && searchParams.get("to") === commentPath ? (
-              <Outlet />
-            ) : (
-              <Link
-                to={`reply?to=${commentPath}`}
-                className="text-xs text-slate-600 underline"
-                state={{ disableScroll: true }}
-                prefetch="intent"
-              >
-                reply
-              </Link>
+            {item.type === "comment" && (
+              <>
+                {!root && searchParams.get("to") === commentPath ? (
+                  <Outlet />
+                ) : (
+                  <Link
+                    to={`reply?to=${commentPath}`}
+                    className="text-xs text-slate-600 underline"
+                    state={{ disableScroll: true }}
+                    prefetch="intent"
+                  >
+                    reply
+                  </Link>
+                )}
+              </>
             )}
           </div>
         )}

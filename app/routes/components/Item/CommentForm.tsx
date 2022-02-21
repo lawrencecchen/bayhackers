@@ -14,7 +14,7 @@ function CommentForm({
       <input type="hidden" name="by" value="lawrence" />
       <input type="hidden" name="path" value={parentPath} />
       <textarea
-        className="block border border-slate-300 px-2 py-1 w-full max-w-3xl"
+        className="block border border-slate-300 px-2 py-1 w-full max-w-3xl text-sm"
         name="comment"
         aria-label="Comment"
         rows={5}

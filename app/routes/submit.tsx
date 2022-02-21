@@ -10,10 +10,12 @@ export const action: ActionFunction = async ({ params, request }) => {
   const title = formData.get("title");
   const url = formData.get("url");
   const by = formData.get("by");
+  const text = formData.get("text");
 
   invariant(typeof title === "string", "title must be a string");
   invariant(typeof url === "string", "url must be a string");
   invariant(typeof by === "string", "by must be a string");
+  invariant(typeof text === "string", "text must be a string");
 
   const type = "story";
 
@@ -23,6 +25,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       type,
       title,
       url,
+      text,
       by,
     })
     .single();
@@ -62,6 +65,19 @@ export default function Submit() {
             className="border border-slate-300 px-2 py-1 col-span-4 sm:col-span-3"
             name="url"
           />
+          <div className="col-start-2 my-3 font-bold">or</div>
+          <label
+            htmlFor="url"
+            className="col-span-1 text-sm font-semibold col-start-1"
+          >
+            text
+          </label>
+          <textarea
+            className="block border border-slate-300 px-2 py-1 col-span-4 sm:col-span-3 text-sm"
+            name="text"
+            aria-label="Text"
+            rows={4}
+          ></textarea>
         </div>
 
         <hr className="my-4" />
